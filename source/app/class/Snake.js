@@ -18,7 +18,7 @@ export default class Snake {
     this.moving = [1, 0];
     this.startingPos = config.snake.startingPosition;
     this.snake = []; 
-    this.pause = false;
+    this.pause = true;
   }
 
   /**
