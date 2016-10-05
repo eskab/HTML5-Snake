@@ -5,8 +5,6 @@ import utils from '../modules/utils.js';
 
 import Game from './Game.js';
 
-import { LEFT, RIGHT, UP, DOWN } from '../constants/Direction.js';
-
 /** Map class */
 export default class Snake {
 
@@ -17,7 +15,6 @@ export default class Snake {
     this.width = config.canvas.width / config.map.w;
     this.height = config.canvas.height / config.map.h;
 
-    this.direction = RIGHT;   
     this.moving = [1, 0];
     this.startingPos = config.snake.startingPosition;
     this.snake = []; 
@@ -57,7 +54,7 @@ export default class Snake {
       this.ctr.addChild(shape);
     }
   }
-
+ 
   /**
    * Set keys for events
    */
@@ -65,26 +62,22 @@ export default class Snake {
     document.addEventListener('keydown', (e) => {
       switch (e.keyCode) {
         case 37:
-          this.direction = LEFT;
           this.moving = [-1, 0];
           console.log('moving left');
           break;
         case 38:
-          this.direction = UP;
           this.moving = [0, -1];
           console.log('moving up');
           break;
         case 39:
-          this.direction = RIGHT;
           this.moving = [1, 0];
           console.log('moving right');
           break;
         case 40:
-          this.direction = DOWN;
           this.moving = [0, 1];
           console.log('moving down');
           break;                 
-        case 46:
+        case 32:
           // temp
           if (!this.pause) {
             Ticker.removeAllEventListeners();
@@ -96,9 +89,6 @@ export default class Snake {
           }
           this.pause = !this.pause;
           break;  
-        case 32:
-          Ticker.on('tick', this.move.bind(this));
-          break;
       }
     });
   }

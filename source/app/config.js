@@ -39,7 +39,7 @@ let config = module.exports = {
 		h: 40
 	},
 	snake: {
-		length: 5,
+		length: 10,
 		startingPosition: [0, 20]
 	}
 };
