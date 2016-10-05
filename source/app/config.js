@@ -37,5 +37,9 @@ let config = module.exports = {
 	map: {
 		w: 50,
 		h: 40
+	},
+	snake: {
+		length: 3,
+		position: [0, 20]
 	}
 };

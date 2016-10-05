@@ -5,6 +5,7 @@ import utils from '../modules/utils.js';
 import Preload from './Preload.js';
 import MainMenu from './MainMenu.js';
 import Map from './Map.js';
+import Snake from './Snake.js';
 
 /** Main class representing game world. */
 export default class Game {
@@ -47,6 +48,7 @@ export default class Game {
 	 */
 	initWorld() {
 		Game.MAP = new Map();
+		Game.SNAKE = new Snake();
 	}
 
 	/**
@@ -90,3 +92,5 @@ Game.STAGE = {};
 Game.IMAGES = {};
 /** Object for class Map */
 Game.MAP = {};
+/** Object for class Snake */
+Game.SNAKE = {};

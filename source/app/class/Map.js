@@ -29,6 +29,7 @@ export default class Map {
     }
 
     this.draw();
+    Game.SNAKE.init();
   }
 
   /**
@@ -41,9 +42,8 @@ export default class Map {
 
     for (let i = 0; i < config.map.w; i++) {
       for (let j = 0; j < config.map.h; j++) {
-        const color = (i % 2 === 0 && j % 2 === 0) ? '#ffffff' : '#ff0000';
-        const num = (i === 0) ? 0 : 1;
-        const shp = utils.drawShp(i * w + num, j * h + num, w, h, color);
+        const color = (i % 2 === 0 && j % 2 === 0) ? '#ffffff' : '#07C';
+        const shp = utils.drawShp(i * w, j * h, w, h, color);
         this.ctr.addChild(shp);
       }
     }
