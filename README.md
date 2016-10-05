@@ -1,6 +1,6 @@
-# CreateJS application starter
+# HTML5 Snake
 
-This starter allows you to write HTML5 application in CreateJS/ES6, using with webpack. ~~Unfortunately, there is no official CreateJS npm package, so we have to wait for it.~~ Solved with Bower packages.
+HTML5 Snake game written in ES6/CreateJS using webpack (currently in progress).
 Requirements:
 ------
 + Node & npm
@@ -24,13 +24,3 @@ To start webpack-dev-server type:
 ``
 $ npm start
 ``
-
-To do:
-------
-+ ~~local createjs framework~~
-+ ~~game class~~
-+ ~~preloader class~~
-+ ~~preload concept~~
-+ ~~main menu class~~
-+ description/instruction
-+ webpack production/development
