@@ -5,6 +5,8 @@ import utils from '../modules/utils.js';
 
 import Game from './Game.js';
 
+import { LEFT, RIGHT, UP, DOWN } from '../constants/Direction.js';
+
 /** Map class */
 export default class Snake {
 
@@ -13,7 +15,12 @@ export default class Snake {
    */
   constructor() {
     this.width = config.canvas.width / config.map.w;
-    this.height = config.canvas.height / config.map.h;    
+    this.height = config.canvas.height / config.map.h;
+
+    this.direction = LEFT;   
+    this.moving = [-1, 0];
+    this.position = config.snake.position;
+    this.snake = []; 
   }
 
   /**
@@ -23,115 +30,63 @@ export default class Snake {
     this.ctr = utils.drawCtr();
     Game.STAGE.addChild(this.ctr);
 
-    this.position = [config.snake.position[0], config.snake.position[1]];
-
-    this.draw();
     this.setKeys();
-
-    Ticker.on('tick', this.move.bind(this));
+    this.initSnake();
+    this.draw();
   }
 
   /**
-   * Drawing snake
+   * Creating snake's body array
+   */
+  initSnake() {
+    for (let i = 0; i < config.snake.length; i++) {
+      this.snake.push(this.position[i]);
+    }    
+  }
+
+  /**
+   * Drawing snake depends on it's coordinates
    */
   draw() {
-    if (this.snake) this.ctr.removeChild(this.snake);
+    this.ctr.removeAllChildren();
 
-    // for (let i = 0; i < config.snake.length; i++) {
-      this.snake = utils.drawShp(this.position[0] * this.width, this.height * this.position[1], this.width, this.height, '#ff0000');
-      this.ctr.addChild(this.snake);
-    // }
+    for (let i = 0; i < config.snake.length; i++) {
+      const shape = utils.drawShp(this.snake[i][0] * this.width, this.snake[i][1] * this.height, this.width, this.height, '#ff0000');
+      this.ctr.addChild(shape);
+    }
   }
 
   /**
-   * Setting event for keys
+   * Set keys for events
    */
   setKeys() {
     document.addEventListener('keydown', (e) => {
-      var keyCode = e.keyCode ? e.keyCode : e.which;
-      switch (keyCode) {
-      case 37:
-        this.moveLeft();
-        break;
-      case 65:
-        this.moveLeft();
-        break;
-      case 38:
-        this.moveUp();
-        break;
-      case 87:
-        this.moveUp();
-        break;
-      case 39:
-        this.moveRight();
-        break;
-      case 68:
-        this.moveRight();
-        break;
-      case 40:
-        this.moveDown();
-        break;
-      case 83:
-        this.moveDown();
-        break;
+      switch (e.keyCode) {
+        case 37:
+          this.direction = LEFT;
+          this.moving = [-1, 0];
+          break;
+        case 38:
+          this.direction = UP;
+          this.moving = [0, -1];
+          break;
+        case 39:
+          this.direction = RIGHT;
+          this.moving = [1, 0];
+          break;
+        case 40:
+          this.direction = DOWN;
+          this.moving = [0, 1];
+          break;                   
       }
-    }, false);    
+    });
   }
 
   /**
-   * Moves snake in loop
+   * Move snake in loop
    */
   move() {
-    switch(this.direction) {
-      case 'LEFT':
-        this.position = [this.position[0] - 1, this.position[1]];
-        break;
-      case 'UP':
-        this.position = [this.position[0], this.position[1] - 1];
-        break;
-      case 'RIGHT':
-        this.position = [this.position[0] + 1, this.position[1]];
-        break;
-      case 'DOWN':
-        this.position = [this.position[0], this.position[1] + 1];
-        break;
-      default:
-        this.position = [this.position[0] + 1, this.position[1]];
-    }
-
-    this.draw();
+    this.position[0] = 0;
   }
-
-  /**
-   * Snake move left method
-   */
-  moveLeft() {
-    console.log('move left');
-    this.direction = 'LEFT';
-  }
-
-  /**
-   * Snake move up method
-   */
-  moveUp() {
-    console.log('move up');
-    this.direction = 'UP';
-  }
-
-  /**
-   * Snake move right method
-   */
-  moveRight() {
-    console.log('move right');
-    this.direction = 'RIGHT';
-  }
-
-  /**
-   * Snake move down method
-   */
-  moveDown() {
-    console.log('move down');
-    this.direction = 'DOWN';
-  }   
 
 }
