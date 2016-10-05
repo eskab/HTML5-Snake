@@ -171,6 +171,7 @@ utils.drawTextShape = function(x, y, w, h, bgColor, content, color, font) {
 	ctr.addChild(shp, text);
 
 	this.centerObject(text, ctr);
+	this.centerReg(text);
 
 	text.textAlign = 'center';
 	text.textBaseline = 'middle';
@@ -178,3 +179,26 @@ utils.drawTextShape = function(x, y, w, h, bgColor, content, color, font) {
 
 	return ctr;
 }; 
+
+/** 
+ * Draws container with background and text centered vertically&horizontally. 
+ * Container is used as a button
+ * @param {function} Callback for click event
+ * @param {number} X Horizontal container position
+ * @param {number} Y Vertical container position
+ * @param {number} Width Width of container
+ * @param {number} Height Height of container
+ * @param {string} BackgroundColor Background color of container
+ * @param {string} Content Content of text object in container
+ * @param {string} Color Color of text object in container
+ * @param {string} Font Font specification in format '[size] [type]', e.g '30px Arial'
+ * @returns {object} CreateJS container object
+ */
+utils.drawClickableButton = function(cb, x, y, w, h, bgColor, content, color, font) {
+	const button = this.drawTextShape(x, y, w, h, bgColor, content, color, font);
+
+	button.cursor = 'pointer';
+	button.on('click', cb);
+
+	return button;
+};

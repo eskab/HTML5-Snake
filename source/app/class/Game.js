@@ -28,6 +28,8 @@ export default class Game {
 		this.canvas = Game.CANVAS = document.getElementById(config.canvas.id);
 		this.stage = Game.STAGE = new Stage(this.canvas);
 
+		this.stage.enableMouseOver();
+
 		Ticker.setFPS(config.stage.fps);
 		Ticker.on('tick', this.ticker.bind(this));
 		
