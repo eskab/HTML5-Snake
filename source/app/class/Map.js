@@ -19,6 +19,7 @@ export default class Map {
     this.ctr = utils.drawCtr();
     Game.STAGE.addChild(this.ctr);
 
+    // will be needed to check snake's collision
     this.map = [];
 
     for (let i = 0; i < config.map.w; i++) {
@@ -28,25 +29,7 @@ export default class Map {
       }
     }
 
-    this.draw();
     Game.SNAKE.init();
-  }
-
-  /**
-   * Drawing map
-   */
-  draw() {
-    console.log('draw');
-    const w = config.canvas.width / config.map.w;
-    const h = config.canvas.height / config.map.h;
-
-    for (let i = 0; i < config.map.w; i++) {
-      for (let j = 0; j < config.map.h; j++) {
-        const color = (i % 2 === 0 && j % 2 === 0) ? '#ffffff' : '#07C';
-        const shp = utils.drawShp(i * w, j * h, w, h, color);
-        this.ctr.addChild(shp);
-      }
-    }
   }
 
 }
