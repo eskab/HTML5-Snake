@@ -53,7 +53,6 @@ export default class Snake {
     this.ctr.removeAllChildren();
 
     for (let i = 0; i < this.snake.length; i++) {
-      // console.log(this.snake[i]);
       const shape = utils.drawShp(this.snake[i][0] * this.width, this.snake[i][1] * this.height, this.width, this.height, '#ff0000');
       this.ctr.addChild(shape);
     }
