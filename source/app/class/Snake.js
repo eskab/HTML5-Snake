@@ -17,10 +17,11 @@ export default class Snake {
     this.width = config.canvas.width / config.map.w;
     this.height = config.canvas.height / config.map.h;
 
-    this.direction = LEFT;   
-    this.moving = [-1, 0];
+    this.direction = RIGHT;   
+    this.moving = [1, 0];
     this.position = config.snake.position;
     this.snake = []; 
+    this.pause = false;
   }
 
   /**
@@ -32,7 +33,9 @@ export default class Snake {
 
     this.setKeys();
     this.initSnake();
-    this.draw();
+    // this.draw();
+
+    Ticker.on('tick', this.move.bind(this));
   }
 
   /**
@@ -41,7 +44,7 @@ export default class Snake {
   initSnake() {
     for (let i = 0; i < config.snake.length; i++) {
       this.snake.push(this.position[i]);
-    }    
+    }
   }
 
   /**
@@ -65,19 +68,35 @@ export default class Snake {
         case 37:
           this.direction = LEFT;
           this.moving = [-1, 0];
+          console.log('moving left');
           break;
         case 38:
           this.direction = UP;
           this.moving = [0, -1];
+          console.log('moving up');
           break;
         case 39:
           this.direction = RIGHT;
           this.moving = [1, 0];
+          console.log('moving right');
           break;
         case 40:
           this.direction = DOWN;
           this.moving = [0, 1];
-          break;                   
+          console.log('moving down');
+          break;                 
+        case 46:
+          // temp
+          if (!this.pause) {
+            Ticker.removeAllEventListeners();
+          } else {
+            Ticker.on('tick', () => {
+              this.move();
+              Game.STAGE.update();
+            });
+          }
+          this.pause = !this.pause;
+          break;  
       }
     });
   }
@@ -86,7 +105,21 @@ export default class Snake {
    * Move snake in loop
    */
   move() {
-    this.position[0] = 0;
+    // this.snake[0][0] += this.moving[0];
+    // this.snake[0][1] += this.moving[1];
+
+    this.snake.push([this.snake[this.snake.length - 1][0] + this.moving[0], this.snake[this.snake.length - 1][1] + this.moving[1]]);
+    this.snake.shift();
+    
+    this.draw();
+
+    // const shape = utils.drawShp(this.snake[0][0] * this.width, this.snake[0][1] * this.height, this.width, this.height, '#ff0000');
+    // this.ctr.addChild(shape);    
+
+    console.log(this.snake[0][0], this.snake[0][1]);
+    console.log(this.snake[1][0], this.snake[1][1]);
+    console.log(this.snake[2][0], this.snake[2][1]);
+    console.log('=======================================================');    
   }
 
 }
