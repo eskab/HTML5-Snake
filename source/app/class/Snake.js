@@ -19,7 +19,7 @@ export default class Snake {
 
     this.direction = RIGHT;   
     this.moving = [1, 0];
-    this.position = config.snake.position;
+    this.startingPos = config.snake.startingPosition;
     this.snake = []; 
     this.pause = false;
   }
@@ -33,9 +33,6 @@ export default class Snake {
 
     this.setKeys();
     this.initSnake();
-    // this.draw();
-
-    Ticker.on('tick', this.move.bind(this));
   }
 
   /**
@@ -43,8 +40,10 @@ export default class Snake {
    */
   initSnake() {
     for (let i = 0; i < config.snake.length; i++) {
-      this.snake.push(this.position[i]);
+      this.snake.push([++this.startingPos[0], this.startingPos[1]]);
     }
+
+    this.draw();    
   }
 
   /**
@@ -53,7 +52,8 @@ export default class Snake {
   draw() {
     this.ctr.removeAllChildren();
 
-    for (let i = 0; i < config.snake.length; i++) {
+    for (let i = 0; i < this.snake.length; i++) {
+      // console.log(this.snake[i]);
       const shape = utils.drawShp(this.snake[i][0] * this.width, this.snake[i][1] * this.height, this.width, this.height, '#ff0000');
       this.ctr.addChild(shape);
     }
@@ -97,6 +97,9 @@ export default class Snake {
           }
           this.pause = !this.pause;
           break;  
+        case 32:
+          Ticker.on('tick', this.move.bind(this));
+          break;
       }
     });
   }
@@ -105,21 +108,10 @@ export default class Snake {
    * Move snake in loop
    */
   move() {
-    // this.snake[0][0] += this.moving[0];
-    // this.snake[0][1] += this.moving[1];
-
     this.snake.push([this.snake[this.snake.length - 1][0] + this.moving[0], this.snake[this.snake.length - 1][1] + this.moving[1]]);
     this.snake.shift();
     
     this.draw();
-
-    // const shape = utils.drawShp(this.snake[0][0] * this.width, this.snake[0][1] * this.height, this.width, this.height, '#ff0000');
-    // this.ctr.addChild(shape);    
-
-    console.log(this.snake[0][0], this.snake[0][1]);
-    console.log(this.snake[1][0], this.snake[1][1]);
-    console.log(this.snake[2][0], this.snake[2][1]);
-    console.log('=======================================================');    
   }
 
 }
