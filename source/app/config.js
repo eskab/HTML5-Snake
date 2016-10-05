@@ -33,5 +33,9 @@ let config = module.exports = {
 	},
 	stage: {
 		fps: 40
+	},
+	map: {
+		w: 50,
+		h: 40
 	}
 };

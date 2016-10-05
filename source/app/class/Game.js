@@ -4,6 +4,7 @@ import config from '../config.js';
 import utils from '../modules/utils.js';
 import Preload from './Preload.js';
 import MainMenu from './MainMenu.js';
+import Map from './Map.js';
 
 /** Main class representing game world. */
 export default class Game {
@@ -26,7 +27,7 @@ export default class Game {
 	 */
 	init(resolve) {
 		this.canvas = Game.CANVAS = document.getElementById(config.canvas.id);
-		this.stage = Game.STAGE = new Stage(this.canvas);
+		this.stage = Game.STAGE = window.stage = new Stage(this.canvas);
 
 		this.stage.enableMouseOver();
 
@@ -36,7 +37,16 @@ export default class Game {
 		this.resize();
 		window.onresize = this.resize.bind(this);
 
+		this.initWorld();
+
 		resolve();
+	}
+
+	/**
+	 * Create all views
+	 */
+	initWorld() {
+		Game.MAP = new Map();
 	}
 
 	/**
@@ -78,3 +88,5 @@ Game.CANVAS = {};
 Game.STAGE = {};
 /** Object for preloaded images. */
 Game.IMAGES = {};
+/** Object for class Map */
+Game.MAP = {};

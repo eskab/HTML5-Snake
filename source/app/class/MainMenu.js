@@ -2,7 +2,6 @@ import config from '../config.js';
 import utils from '../modules/utils.js';
 
 import Game from './Game.js';
-import Map from './Map.js';
 
 /** MainMenu showing game menu */
 export default class MainMenu {
@@ -54,7 +53,7 @@ export default class MainMenu {
 	 */
 	playButtonHandler(e) {
 		this.uninit();
-		new Map();
+		Game.MAP.init();
 	}
 
 }
