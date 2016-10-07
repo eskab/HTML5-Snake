@@ -11,7 +11,6 @@ HTML5 Snake game written in ES6/CreateJS using webpack (currently in progress).
 | Webpack-dev-server | `npm install -g webpack-dev-server` |
 
 ## Installation:
-------
 To get started clone this repository and type:
 
 ``
