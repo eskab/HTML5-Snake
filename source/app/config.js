@@ -40,7 +40,7 @@ let config = module.exports = {
 		height: 1080
 	},
 	stage: {
-		fps: 1
+		fps: 25
 	},
 	map: {
 		w: 100,

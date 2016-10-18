@@ -1,7 +1,8 @@
 import { Ticker } from 'EaselJS';
 
 import config from '../config';
-import utils from '../modules/utils.js';
+import utils from '../modules/utils';
+import { RIGHT, LEFT, UP, DOWN } from '../constans/direction';
 
 import Game from './Game.js';
 
@@ -16,6 +17,7 @@ export default class Snake {
     this.height = config.canvas.height / config.map.h;
 
     this.moving = [1, 0];
+    this.direction = RIGHT;
     this.startingPos = config.snake.startingPosition;
     this.snake = [];
     this.pause = true;
@@ -64,20 +66,28 @@ export default class Snake {
     document.addEventListener('keydown', (e) => {
       switch (e.keyCode) {
         case 37:
+          if (this.direction === RIGHT) return;
+
           this.moving = [-1, 0];
-          console.log('moving left');
+          this.direction = LEFT;
           break;
         case 38:
+          if (this.direction === DOWN) return;
+
           this.moving = [0, -1];
-          console.log('moving up');
+          this.direction = UP;
           break;
         case 39:
+          if (this.direction === LEFT) return;          
+
           this.moving = [1, 0];
-          console.log('moving right');
+          this.direction = RIGHT;
           break;
         case 40:
+          if (this.direction === UP) return;
+
           this.moving = [0, 1];
-          console.log('moving down');
+          this.direction = DOWN;
           break;                 
         case 32:
           // temp
@@ -107,32 +117,23 @@ export default class Snake {
     } else {
       Ticker.removeAllEventListeners();
     }
-
   }
 
   /**
    * Check if snake is in the map 
    */
   checkCollision() {
-    const head = this.snake.length - 1;
-    // let snakePosition = [];
-    // under work
     for (let i = 0; i < this.snake.length; i++) {
-      // snakePosition.push(this.snake[i]);
       let pos = this.snake[i];
 
       for (let j = 0; j < this.snake.length; j++) {
-        console.log(this.snake[j], pos, j, i);
-        if (this.snake[j] === pos) {
-          console.log('aaaaaaaaa');
+        if (this.snake[j][0] === pos[0] && this.snake[j][1] === pos[1] && j !== i) {
+          return true;
         }
-        if (this.snake[j] === pos && j !== i) {
-          console.log('game over');
-          Ticker.removeAllEventListeners();
-          break;
-        }
-      }          
+      }
     }
+
+    return false;
   }
 
 }
