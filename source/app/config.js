@@ -10,6 +10,14 @@
  *
  * @property {object} stage - default stage settings
  * @property {number} stage.fps - stage framerate
+ * 
+ * @property {object} map - default map settings
+ * @property {number} map.w - map width
+ * @property {number} map.h - map height
+ * 
+ * @property {object} snake - default snake settings
+ * @property {number} snake.length - snake length
+ * @property {array} snake.startingPosition - [x, y]
  */
 let config = module.exports = {
 	manifest: [
@@ -32,14 +40,14 @@ let config = module.exports = {
 		height: 1080
 	},
 	stage: {
-		fps: 25
+		fps: 1
 	},
 	map: {
-		w: 50,
-		h: 40
+		w: 100,
+		h: 100
 	},
 	snake: {
 		length: 10,
-		startingPosition: [0, 20]
+		startingPosition: [0, 50]
 	}
 };

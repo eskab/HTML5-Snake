@@ -17,7 +17,7 @@ export default class Snake {
 
     this.moving = [1, 0];
     this.startingPos = config.snake.startingPosition;
-    this.snake = []; 
+    this.snake = [];
     this.pause = true;
   }
 
@@ -50,7 +50,9 @@ export default class Snake {
     this.ctr.removeAllChildren();
 
     for (let i = 0; i < this.snake.length; i++) {
-      const shape = utils.drawShp(this.snake[i][0] * this.width, this.snake[i][1] * this.height, this.width, this.height, '#ff0000');
+      let color = (i === this.snake.length - 1) ? '#ffffff' : '#ff0000';
+
+      const shape = utils.drawShp(this.snake[i][0] * this.width, this.snake[i][1] * this.height, this.width, this.height, color);
       this.ctr.addChild(shape);
     }
   }
@@ -97,10 +99,40 @@ export default class Snake {
    * Move snake in loop
    */
   move() {
-    this.snake.push([this.snake[this.snake.length - 1][0] + this.moving[0], this.snake[this.snake.length - 1][1] + this.moving[1]]);
-    this.snake.shift();
-    
-    this.draw();
+    if (!this.checkCollision()) {
+      this.snake.push([this.snake[this.snake.length - 1][0] + this.moving[0], this.snake[this.snake.length - 1][1] + this.moving[1]]);
+      this.snake.shift();
+      
+      this.draw();
+    } else {
+      Ticker.removeAllEventListeners();
+    }
+
+  }
+
+  /**
+   * Check if snake is in the map 
+   */
+  checkCollision() {
+    const head = this.snake.length - 1;
+    // let snakePosition = [];
+    // under work
+    for (let i = 0; i < this.snake.length; i++) {
+      // snakePosition.push(this.snake[i]);
+      let pos = this.snake[i];
+
+      for (let j = 0; j < this.snake.length; j++) {
+        console.log(this.snake[j], pos, j, i);
+        if (this.snake[j] === pos) {
+          console.log('aaaaaaaaa');
+        }
+        if (this.snake[j] === pos && j !== i) {
+          console.log('game over');
+          Ticker.removeAllEventListeners();
+          break;
+        }
+      }          
+    }
   }
 
 }
