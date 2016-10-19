@@ -28,7 +28,7 @@ export default class Game {
 	 */
 	init(resolve) {
 		this.canvas = Game.CANVAS = document.getElementById(config.canvas.id);
-		this.stage = Game.STAGE = window.stage = new Stage(this.canvas);
+		this.stage = Game.STAGE = new Stage(this.canvas);
 
 		this.stage.enableMouseOver();
 

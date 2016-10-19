@@ -36,8 +36,8 @@ let config = module.exports = {
 	],
 	canvas: {
 		id: 'main',
-		width: 1920,
-		height: 1080
+		width: window.innerWidth,
+		height: window.innerHeight
 	},
 	stage: {
 		fps: 25

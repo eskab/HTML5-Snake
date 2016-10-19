@@ -109,7 +109,7 @@ export default class Snake {
    * Move snake in loop
    */
   move() {
-    if (!this.checkCollision()) {
+    if (!this.checkSnakeCollision() && !this.checkMapCollision()) {
       this.snake.push([this.snake[this.snake.length - 1][0] + this.moving[0], this.snake[this.snake.length - 1][1] + this.moving[1]]);
       this.snake.shift();
       
@@ -120,9 +120,9 @@ export default class Snake {
   }
 
   /**
-   * Check if snake is in the map 
+   * Check if snake is not in the same places
    */
-  checkCollision() {
+  checkSnakeCollision() {
     for (let i = 0; i < this.snake.length; i++) {
       let pos = this.snake[i];
 
@@ -135,5 +135,20 @@ export default class Snake {
 
     return false;
   }
+
+  /**
+   * Check if snake is on the map
+   */
+  checkMapCollision() {
+    const snake = this.snake;
+    const x = snake[snake.length - 1][0];
+    const y = snake[snake.length - 1][1];
+
+    if (x === 0 || x === 99 || y === 0 || y === 99) {
+      return true;
+    }
+
+    return false;
+  }  
 
 }
