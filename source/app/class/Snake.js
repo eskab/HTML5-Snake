@@ -140,11 +140,11 @@ export default class Snake {
    * Check if snake is on the map
    */
   checkMapCollision() {
-    const snake = this.snake;
-    const x = snake[snake.length - 1][0];
-    const y = snake[snake.length - 1][1];
+    const snake = this.snake,
+          x = snake[snake.length - 1][0],
+          y = snake[snake.length - 1][1];
 
-    if (x === 0 || x === 99 || y === 0 || y === 99) {
+    if (x === 0 || x === config.map.w || y === 0 || y === config.map.h) {
       return true;
     }
 
