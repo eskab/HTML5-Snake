@@ -10,88 +10,88 @@ import Game from './Game.js';
  */
 export default class Preload {
 
-	/**
-	 * Calling init method
-	 * @returns {object} Promise Preload promise
-	 */
-	constructor() {
-		return new utils._Promise((resolve, reject) => {
-			this.init(resolve);
-		});
-	}
+  /**
+   * Calling init method
+   * @returns {object} Promise Preload promise
+   */
+  constructor() {
+    return new utils._Promise((resolve, reject) => {
+      this.init(resolve);
+    });
+  }
 
-	/**
-	 * Sets up game loader. Resolve promise when loading is complete.
-	 * @param {object} Resolve Promise resolve
-	 */
-	init(resolve) {
-		this.createTextLoader();
+  /**
+   * Sets up game loader. Resolve promise when loading is complete.
+   * @param {object} Resolve Promise resolve
+   */
+  init(resolve) {
+    this.createTextLoader();
 
-		this.loader = new LoadQueue(false);
-		this.loader.on('error', this.handleFileError, this);
-		this.loader.on('fileload', this.handleFileLoad, this);
-		this.loader.on('progress', this.handleProgress.bind(this), this);
-		this.loader.on('complete', this.handleComplete.bind(this, () => resolve()));
-		this.loader.loadManifest(config.manifest);
-	}
+    this.loader = new LoadQueue(false);
+    this.loader.on('error', this.handleFileError, this);
+    this.loader.on('fileload', this.handleFileLoad, this);
+    this.loader.on('progress', this.handleProgress.bind(this), this);
+    this.loader.on('complete', this.handleComplete.bind(this, () => resolve()));
+    this.loader.loadManifest(config.manifest);
+  }
 
-	/**
-	 * Create graphic loader for manifest.
-	 */
-	createTextLoader() {
-		this.graphicLoader = utils.drawTextShape(0, 0, config.canvas.width, config.canvas.height, '#fff', 'Loading', '#9b59b6');
-			
-		this.textLoader = this.graphicLoader.getChildByName('mainText');
-		Game.STAGE.addChild(this.graphicLoader);
-	}
+  /**
+   * Create graphic loader for manifest.
+   */
+  createTextLoader() {
+    this.graphicLoader = utils.drawTextShape(0, 0, config.canvas.width, config.canvas.height, '#fff', 'Loading', '#9b59b6');
 
-	/**
-	 * Erase graphic loader.
-	 */
-	eraseTextLoader() {
-		Game.STAGE.removeChild(this.graphicLoader);
-		this.graphicLoader = null;
-	}
+    this.textLoader = this.graphicLoader.getChildByName('mainText');
+    Game.STAGE.addChild(this.graphicLoader);
+  }
 
-	/**
-	 * Handle errors from loader.
-	 * @param {object} Event Error event.
-	 */
-	handleFileError(e) {
-		console.warn('Error: ' + e.title);
-		console.log(e);
-	}
+  /**
+   * Erase graphic loader.
+   */
+  eraseTextLoader() {
+    Game.STAGE.removeChild(this.graphicLoader);
+    this.graphicLoader = null;
+  }
 
-	/**
-	 * Pushing loaded object to Game.IMAGES if file is image.
-	 * @param {object} Event Loaded item event.
-	 */
-	handleFileLoad(e) {
-		if (e.item.type === 'image') {
-			Game.IMAGES[e.item.id] = e.result;
-		}		
-	}
+  /**
+   * Handle errors from loader.
+   * @param {object} Event Error event.
+   */
+  handleFileError(e) {
+    console.warn('Error: ' + e.title);
+    console.log(e);
+  }
 
-	/**
-	 * Shows loading progress.
-	 */
-	handleProgress() {
-		let percent = Math.round(this.loader.progress * 100);
+  /**
+   * Pushing loaded object to Game.IMAGES if file is image.
+   * @param {object} Event Loaded item event.
+   */
+  handleFileLoad(e) {
+    if (e.item.type === 'image') {
+      Game.IMAGES[e.item.id] = e.result;
+    }
+  }
 
-		console.log(`Loading ${percent} %`);
-		this.textLoader.text = `Loading ${percent} %`;
-	}
+  /**
+   * Shows loading progress.
+   */
+  handleProgress() {
+    let percent = Math.round(this.loader.progress * 100);
 
-	/**
-	 * Fires when loading is complete.
-	 * Slides up graphic loader and executes callback.
-	 * @param {object} Callback Callback - resolve loader promise
-	 */
-	handleComplete(cb) {
-		Tween.get(this.graphicLoader)
-			.to({y: -config.canvas.height}, 1000, Ease.cubicInOut)
-			.call(this.eraseTextLoader)
-			.call(cb);
-	}
+    console.log(`Loading ${percent} %`);
+    this.textLoader.text = `Loading ${percent} %`;
+  }
+
+  /**
+   * Fires when loading is complete.
+   * Slides up graphic loader and executes callback.
+   * @param {object} Callback Callback - resolve loader promise
+   */
+  handleComplete(cb) {
+    Tween.get(this.graphicLoader)
+      .to({ y: -config.canvas.height }, 1000, Ease.cubicInOut)
+      .call(this.eraseTextLoader)
+      .call(cb);
+  }
 
 }

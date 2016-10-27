@@ -42,7 +42,7 @@ export default class Snake {
       this.snake.push([++this.startingPos[0], this.startingPos[1]]);
     }
 
-    this.draw();    
+    this.draw();
   }
 
   /**
@@ -58,7 +58,7 @@ export default class Snake {
       this.ctr.addChild(shape);
     }
   }
- 
+
   /**
    * Set keys for events
    */
@@ -78,7 +78,7 @@ export default class Snake {
           this.direction = UP;
           break;
         case 39:
-          if (this.direction === LEFT) return;          
+          if (this.direction === LEFT) return;
 
           this.moving = [1, 0];
           this.direction = RIGHT;
@@ -88,7 +88,7 @@ export default class Snake {
 
           this.moving = [0, 1];
           this.direction = DOWN;
-          break;                 
+          break;
         case 32:
           // temp
           if (!this.pause) {
@@ -100,7 +100,7 @@ export default class Snake {
             });
           }
           this.pause = !this.pause;
-          break;  
+          break;
       }
     });
   }
@@ -114,13 +114,13 @@ export default class Snake {
     if (isNotCollision) {
       this.snake.push([this.snake[this.snake.length - 1][0] + this.moving[0], this.snake[this.snake.length - 1][1] + this.moving[1]]);
       this.snake.shift();
-      
+
       this.draw();
     } else {
       Ticker.removeAllEventListeners();
     }
   }
- 
+
   /**
    * Check if snake is not in the same places
    */

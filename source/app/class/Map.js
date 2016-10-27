@@ -37,13 +37,13 @@ export default class Map {
    */
   checkCollision(snake) {
     const x = snake[snake.length - 1][0],
-          y = snake[snake.length - 1][1];
+      y = snake[snake.length - 1][1];
 
     if (x < 0 || x >= config.map.w || y < 0 || y >= config.map.h) {
       return true;
     }
 
-    return false;    
+    return false;
   }
 
   /**
@@ -51,12 +51,12 @@ export default class Map {
    */
   generateRandomPos(excludedCoordinates) {
     const w = config.map.w,
-          h = config.map.h;
-    let   free = false;
-          
+      h = config.map.h;
+    let free = false;
+
     while (!free) {
       let x = Math.floor(Math.random() * w),
-          y = Math.floor(Math.random() * h);
+        y = Math.floor(Math.random() * h);
 
       if (this.map[x][y] === null) {
         free = true;
@@ -71,7 +71,9 @@ export default class Map {
       }
     }
 
-    return [[x][y]];
+    return [
+      [x][y]
+    ];
   }
 
 }
