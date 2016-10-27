@@ -1,7 +1,7 @@
 import config from '../config';
-import utils from '../modules/utils.js';
+import utils from '../modules/utils';
 
-import Game from './Game.js';
+import Game from './Game';
 
 /** Map class */
 export default class Map {

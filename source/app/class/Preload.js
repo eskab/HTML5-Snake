@@ -1,9 +1,9 @@
 import { LoadQueue } from 'PreloadJS';
 import { Tween, Ease } from 'TweenJS';
 
-import config from '../config.js';
-import utils from '../modules/utils.js';
-import Game from './Game.js';
+import config from '../config';
+import utils from '../modules/utils';
+import Game from './Game';
 
 /**
  * Preload class used for loading content

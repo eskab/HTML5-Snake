@@ -4,7 +4,7 @@ import config from '../config';
 import utils from '../modules/utils';
 import { RIGHT, LEFT, UP, DOWN } from '../constans/direction';
 
-import Game from './Game.js';
+import Game from './Game';
 
 /** Map class */
 export default class Snake {

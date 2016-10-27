@@ -1,11 +1,11 @@
 import { Stage, Ticker } from 'EaselJS';
 
-import config from '../config.js';
-import utils from '../modules/utils.js';
-import Preload from './Preload.js';
-import MainMenu from './MainMenu.js';
-import Map from './Map.js';
-import Snake from './Snake.js';
+import config from '../config';
+import utils from '../modules/utils';
+import Preload from './Preload';
+import MainMenu from './MainMenu';
+import Map from './Map';
+import Snake from './Snake';
 
 /** Main class representing game world. */
 export default class Game {
