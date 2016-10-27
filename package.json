@@ -4,7 +4,8 @@
   "description": "Starter for CreateJS projects",
   "main": "source/app/index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline"
+    "start": "webpack-dev-server --inline",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
